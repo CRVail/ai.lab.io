@@ -1,0 +1,6 @@
+#dependencies
+torch
+numpy==1.22.2
+nltk
+streamlit
+flask

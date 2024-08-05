@@ -1,0 +1,55 @@
+{
+  "data": [
+        {
+          "input": "AWS Cloudwatch: Lambda Error",
+          "label": 0 
+        },
+        {
+        "input": "AWS Cloudwatch: EC2 Error",
+        "label": 0 
+        },
+        {
+        "input": "AWS Cloudwatch: ELB Error",
+        "label": 0 
+        },
+        {
+        "input": "AWS Cloudtrail: /r/",
+        "label": 1 
+        },
+        {
+        "input": "AWS Cloudtrail: /d/",
+        "label": 1 
+        },
+        {
+        "input": "AWS Cloudtrail: /z/",
+        "label": 1 
+        },
+        {
+        "input": "AlertSite: Error",
+        "label": 2 
+        },
+        {
+        "input": "AlertSite: Alert",
+        "label": 2 
+        },
+        {
+        "input": "AlertSite: /f/",
+        "label": 2 
+        }
+    ],
+    "definitions": [
+      {
+        "label": 0,
+        "definedAs": "Cloudwatch"
+      },
+      {
+        "label": 1,
+        "definedAs": "Cloudtrail"
+      },
+      {
+        "label": 2,
+        "definedAs": "AlertSite"
+      }
+    ]
+}
+

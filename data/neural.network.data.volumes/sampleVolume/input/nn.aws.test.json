@@ -1,0 +1,9 @@
+{
+    "data": [
+        {"text": "EC2 instance launched", "label": "instance_launch"},
+        {"text": "S3 bucket created", "label": "bucket_creation"},
+        {"text": "RDS instance backup completed", "label": "backup_completion"},
+        {"text": "Lambda function executed", "label": "lambda_execution"},
+        {"text": "Security group modified", "label": "security_group_change"}
+    ]
+}

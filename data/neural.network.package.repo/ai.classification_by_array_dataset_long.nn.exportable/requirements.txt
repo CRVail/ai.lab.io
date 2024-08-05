@@ -1,0 +1,7 @@
+flask
+numpy==1.23.0
+torch
+requests
+pandas
+matplotlib
+sklearn
