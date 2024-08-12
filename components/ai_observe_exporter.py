@@ -11,13 +11,24 @@ def export_model(volumeName, model):
     data = torch.load(modelPath)
     type = data["type"]
     modelMeta = ai_observe_utilities.getModel(volumeName, model)
-    intentsFile = modelMeta[0][2]
+    trainingFile = volumePath + "/input/" + model.replace(".model","")
     if type == "ClassificationByArrayDataset_Long":
-        return "This export option has not been developed yet."
+        file = "ai.classification_by_array_dataset_long.nn.exportable.zip"
+        shutil.copy(os.path.join(repoPath, file), volumePath + "/output/")
+        with zipfile.ZipFile(volumePath + "/output/" + file, "a", compression=zipfile.ZIP_DEFLATED) as zipf:
+            destination_modelData = 'ai.classification_by_array_dataset_long.nn.exportable/classification_by_array_dataset_long.model'
+            zipf.write(modelPath, destination_modelData)
+            #NEED TO ADD FILE! REFERENCE UPSTREAM 
+            destination_Intents = 'ai.classification_by_array_dataset_long.nn.exportable/' + 'trainingData' + '.json'
+            zipf.write(trainingFile, destination_Intents)
+            res = {
+                "downloadName": file,
+                "downloadPath": volumePath + "/output/" + file
+            }
+        return res
     elif type == "TextClassification_Long":
         return "This export option has not been developed yet."
     elif type == "AIFramework_Bot":
-        source = repoPath + "ai.framework.bot.exportable.zip"
         file = "ai.framework.bot.exportable.zip"
         shutil.copy(os.path.join(repoPath, file), volumePath + "/output/")
         with zipfile.ZipFile(volumePath + "/output/" + file, "a", compression=zipfile.ZIP_DEFLATED) as zipf:
@@ -35,7 +46,7 @@ def export_model(volumeName, model):
     else:
         msgTitle = "Invalid AI Classification 'type'"
         msgDetails = """
-        This service requires a classification type to determine how the Neural Netowrk will process your request.\n
+        This service requires a classification type to determine how the Neural Network will process your request.\n
         To make this request, please include the 'type' parameter. The expected values are 'ClassificationByArrayDataset_Long' \n
         or TextClassification_Long or frameworks you can also specify AIFramework_Bot to if your model was trained using the \n
         AIFramework_Bot framework classifier.        

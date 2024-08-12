@@ -4,4 +4,5 @@ torch
 requests
 pandas
 matplotlib
-sklearn
+scikit-learn
+nltk

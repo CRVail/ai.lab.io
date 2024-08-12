@@ -1,5 +1,5 @@
 #####################################################################
-# tasc.bot Requirements
+# ai.lab.io Requirements
 #####################################################################
 from flask import Flask, jsonify, request
 import random
@@ -9,7 +9,7 @@ import sqlite3
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
 #####################################################################
-# tasc.bot Model & NN CONFIGURATIONS
+# ai.lab.io Model & NN CONFIGURATIONS
 #####################################################################
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 with open('intents.json', 'r') as json_data:
@@ -29,9 +29,9 @@ bot_name = "ai.observe.bot"
 
 app = Flask(__name__) 
 #####################################################################
-# tasc.bot COMMANDS AND FUNCTIONS
+# ai.lab.io COMMANDS AND FUNCTIONS
 #####################################################################
-#Performs GET request for tasc.bot
+#Performs GET request for ai.lab.io
 def runCMD(url):
     import requests
     response = requests.request("GET", url)
@@ -74,7 +74,7 @@ def commitLongTermMemory(IP, Name, Ref):
     return "Success!"
 
 #Queries Long Term Memories by IP 
-# Allows tasc.bot to recall names, paths, etc)
+# Allows ai.lab.io bot to recall names, paths, etc)
 def requestLongTermMemory(IP):
     connection_obj = sqlite3.connect('botMem.db')
     sql = "SELECT * FROM LONG_TERM_MEMORY WHERE IP ='" + IP + "'"
@@ -97,7 +97,7 @@ def commitShortTermMemory(IP, Step, Ref):
     return "Success!"
 
 #Queries Short Term Memories by IP
-# Allows tasc.bot to step users through forms and remember 
+# Allows ai.lab.io bot to step users through forms and remember 
 # specific information for that session.
 def requestShortTermMemory(IP):
     connection_obj = sqlite3.connect('botMem.db')
@@ -108,7 +108,7 @@ def requestShortTermMemory(IP):
     return rows
 
 #Memory Recollection
-# Allows tasc.bot to recall memories during client interactions
+# Allows ai.lab.io bot to recall memories during client interactions
 # This is useful for personalization and step based data gathering.
 def memoryReference(IP):
     LongTerm = requestLongTermMemory(IP)
@@ -130,9 +130,9 @@ def memoryReference(IP):
     return obj
     
 #####################################################################
-# tasc.bot Services
+# ai.lab.io bot Services
 #####################################################################
-#Chat with tasc.bot
+#Chat with ai.lab.io bot
 @app.route('/api/prompt_route', methods = ['GET', 'POST']) 
 def prompt_route(): 
     if(request.method == 'GET'): 
@@ -168,7 +168,7 @@ def prompt_route():
                         requestLogCommit(user_address, prompt, res, sources, cmd)
                         return jsonify(prompt_response_dict), 200
             else:
-                res = "Sorry, I do not understand... tasc.bots are trained and specialized for specific directives, subjects or tasks. You can ask me 'What is your directive?' or 'What do you do?' to learn my directives or simply type 'help'."
+                res = "Sorry, I do not understand... ai.lab.io bots are trained and specialized for specific directives, subjects or tasks. You can ask me 'What is your directive?' or 'What do you do?' to learn my directives or simply type 'help'."
                 sources = []
                 cmd = "None"
                 prompt_response_dict = {
@@ -182,7 +182,7 @@ def prompt_route():
     else:
         return "No user prompt received", 200
 
-#Returns a list of commands tasc.bot can perfom
+#Returns a list of commands ai.lab.io bot can perfom
 @app.route('/api/command_route', methods = ['GET', 'POST'])
 def command_route():
     import requests
@@ -201,7 +201,7 @@ def command_route():
                 else: 
                     return "Command not found!", 200
 
-#Returns a list of responses tasc.bot can return
+#Returns a list of responses ai.lab.io bot can return
 @app.route('/api/response_route', methods = ['GET']) 
 def response_route(): 
     if(request.method == 'GET'):
@@ -215,7 +215,7 @@ def response_route():
     else:
         return "Bad Request", 500
 
-#Returns a log of interactions with tasc.bot by IP
+#Returns a log of interactions with ai.lab.io bot by IP
 @app.route('/api/requestLogMemory', methods = ['GET'])
 def shortTermMemory_route():
     if(request.method == 'GET'):
