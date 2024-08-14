@@ -239,7 +239,7 @@ def initialize_project_volume(volumeName, volumeDesc, IP):
         res.append(a)
         event.set()
     except:
-        a = "Failed to CREATE TABLE VOLUME_LOG!"
+        a = "Failed to CREATE TABLE MODELS!"
         res.append(a)
         event.set()
     #

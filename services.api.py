@@ -25,13 +25,13 @@ def dataViewer():
         table = request.args.get('dataset')
         volumeName = request.args.get('volumeName')
         user_address = request.remote_addr
-        statement = "SELECT * FROM " + table + " WHERE IP='" + user_address + "'"
+        statement = "SELECT * FROM " + table
         rows = ai_observe_utilities.volumeRead(ai_observe_utilities.getVolConnString(volumeName), statement)
         return rows, 200
     if(request.method == 'POST'):
         volumeName = request.form.get("volumeName")
         user_address = request.remote_addr
-        statement = request.form.get("statement") + " AND IP='" + user_address + "'"
+        statement = request.form.get("statement")
         rows = ai_observe_utilities.volumeRead(volumeName, statement)
         return rows, 200
 
@@ -71,16 +71,6 @@ def describeVolume():
 
 @app.route('/api/trainModel', methods = ['POST'])
 def trainModel():
-    # SAMPLE TRAINING PAYLOAD
-    #   'volumeName': 'sampleVolume',
-    #   'inputFile': 'nn.test.json',
-    #   'type': 'ClassificationByArrayDataset_Long',
-    #   'batch_size': '2',
-    #   'input_size': '3',
-    #   'hidden_layers': '10',
-    #   'num_classes': '2',
-    #   'learning_rate': '0.01',
-    #   'iterations': '100'
     if(request.method == 'POST'):
         user_address = request.remote_addr
         volumeName = request.form.get("volumeName")

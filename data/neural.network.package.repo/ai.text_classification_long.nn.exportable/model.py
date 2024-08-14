@@ -13,7 +13,7 @@ import random
 vectorizer = CountVectorizer()
 
 TrainingPath = 'trainingData.json'
-ModelPath = 'ai.text_classification_long.model'
+ModelPath = 'text_classification_long.model'
 ModelType = "ai.text_classification_long"
 
 class NeuralNetwork(nn.Module):

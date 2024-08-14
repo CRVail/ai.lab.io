@@ -27,7 +27,19 @@ def export_model(volumeName, model):
             }
         return res
     elif type == "TextClassification_Long":
-        return "This export option has not been developed yet."
+        file = "ai.text_classification_long.nn.exportable.zip"
+        shutil.copy(os.path.join(repoPath, file), volumePath + "/output/")
+        with zipfile.ZipFile(volumePath + "/output/" + file, "a", compression=zipfile.ZIP_DEFLATED) as zipf:
+            destination_modelData = 'ai.text_classification_long.nn.exportable/text_classification_long.model'
+            zipf.write(modelPath, destination_modelData)
+            #NEED TO ADD FILE! REFERENCE UPSTREAM 
+            destination_Intents = 'ai.text_classification_long.nn.exportable/' + 'trainingData' + '.json'
+            zipf.write(trainingFile, destination_Intents)
+            res = {
+                "downloadName": file,
+                "downloadPath": volumePath + "/output/" + file
+            }
+        return res
     elif type == "AIFramework_Bot":
         file = "ai.framework.bot.exportable.zip"
         shutil.copy(os.path.join(repoPath, file), volumePath + "/output/")
